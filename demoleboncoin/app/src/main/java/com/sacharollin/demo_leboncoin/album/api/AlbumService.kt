@@ -1,11 +1,12 @@
 package com.sacharollin.demo_leboncoin.album.api
 
+import com.orhanobut.logger.Logger
 import com.sacharollin.demo_leboncoin.album.data.Track
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.http.GET
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 
 
 interface AlbumService {
@@ -16,8 +17,8 @@ interface AlbumService {
         private const val API_URL = "https://static.leboncoin.fr"
 
         fun create(): AlbumService {
-            val logger = HttpLoggingInterceptor().apply { level =
-                HttpLoggingInterceptor.Level.BASIC
+            val logger = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BASIC
             }
 
             val client = OkHttpClient.Builder()

@@ -1,5 +1,6 @@
 package com.sacharollin.demo_leboncoin.album.data
 
+import com.orhanobut.logger.Logger
 import com.sacharollin.demo_leboncoin.Resource
 import com.sacharollin.demo_leboncoin.album.api.AlbumService
 import com.sacharollin.demo_leboncoin.networkBoundResource
@@ -16,7 +17,10 @@ class AlbumRepository @Inject internal constructor(
     fun getTracks(): Flow<Resource<List<Track>>> {
         return networkBoundResource(
             query = { albumDao.getTracks() },
-            fetch = { albumService.getTracks() },
+            fetch = {
+            Logger.d("API CALL IS MADE")
+                albumService.getTracks()
+                    },
             saveFetchResult = { response -> albumDao.insertTracks(response) },
             shouldFetch = { true } // Might want to change this to prevent fetching all the datas everytime
         )

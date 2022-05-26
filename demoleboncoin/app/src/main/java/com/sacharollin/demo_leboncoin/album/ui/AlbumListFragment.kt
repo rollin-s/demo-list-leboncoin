@@ -10,7 +10,9 @@ import com.sacharollin.demo_leboncoin.NBRStatus
 import com.sacharollin.demo_leboncoin.album.adapter.TracksListAdapter
 import com.sacharollin.demo_leboncoin.album.viewmodels.AlbumListViewModel
 import com.sacharollin.demo_leboncoin.databinding.FragmentAlbumListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AlbumListFragment: Fragment() {
 
     private val viewModel: AlbumListViewModel by viewModels()

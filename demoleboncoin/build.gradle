@@ -4,10 +4,11 @@ buildscript {
         compileSdkVersion = 31
         minSdkVersion = 21
         targetSdkVersion = 31
-        kotlin_version = "1.5.0"
+        kotlinVersion = "1.5.0"
+        gradleVersion = '4.2.1'
 
         // Librairies
-        hiltVersion = '2.41'
+        hiltVersion = '2.42'
         workVersion = '2.7.1'
         retrofitVersion = '2.9.0'
         gsonVersion = '2.9.0'
@@ -15,6 +16,7 @@ buildscript {
         okhttpLoggingVersion = '4.9.3'
         roomVersion = '2.4.2'
         lifecycleVersion = '2.4.1'
+        loggerVersion = '2.2.0'
     }
 
     repositories {
@@ -22,8 +24,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -34,7 +37,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 

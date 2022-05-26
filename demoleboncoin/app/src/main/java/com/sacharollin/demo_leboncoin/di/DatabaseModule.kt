@@ -20,7 +20,6 @@ class DatabaseModule {
         return AppDatabase.getInstance(context)
     }
 
-    @Singleton
     @Provides
     fun provideAlbumDao(appDatabase: AppDatabase): AlbumDao {
         return appDatabase.AlbumDao()
