@@ -23,20 +23,22 @@ class AlbumListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentAlbumListBinding.inflate(inflater, container, false)
+        val binding = FragmentAlbumListBinding.inflate(inflater, container, false).apply {
+            viewModel = this.viewModel
+            listTracksRecycler.adapter = adapter
+        }
 
-        handleUi(binding, adapter);
+        handleUi(adapter);
 
         return binding.root
     }
 
-    private fun handleUi(binding: FragmentAlbumListBinding, adapter: TracksListAdapter) {
-        binding.listTracksRecycler.adapter = adapter;
+    private fun handleUi(adapter: TracksListAdapter) {
 
         viewModel.tracks.observe(viewLifecycleOwner) { listTracks ->
             // When success refresh the list with the tracks
             if (listTracks.status == NBRStatus.SUCCESS) {
-                adapter.submitList(listTracks.data);
+                adapter.submitList(listTracks.data)
             }
         }
     }
