@@ -11,6 +11,12 @@ interface AlbumDao {
     @Query("SELECT * FROM tracks ORDER BY title")
     fun getTracks(): Flow<List<Track>>
 
+    @Query("SELECT * FROM tracks WHERE albumId = :albumId ORDER BY title")
+    fun getTracksFromAlbumId(albumId: Int): Flow<List<Track>>
+
+    @Query("SELECT tracks.albumId AS id, tracks.thumbnailUrl AS thumbnailUrl, tracks.title AS title FROM tracks GROUP BY tracks.albumId")
+    fun getAlbums(): Flow<List<Album>>
+
     @Insert(onConflict = REPLACE)
-    suspend fun insertTracks(tracks: List<Track>);
+    suspend fun insertTracks(tracks: List<Track>)
 }

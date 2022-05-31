@@ -2,14 +2,19 @@ package com.sacharollin.demo_leboncoin.album.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sacharollin.demo_leboncoin.album.data.Track
 import com.sacharollin.demo_leboncoin.databinding.ListItemTrackBinding
+import okhttp3.internal.notifyAll
 
-class TracksListAdapter: ListAdapter<Track, RecyclerView.ViewHolder>(TrackDiffCallback()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+class TracksListAdapter: RecyclerView.Adapter<TracksListAdapter.TrackViewHolder>(
+) {
+    var tracks: List<Track> = listOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(
             ListItemTrackBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -19,9 +24,17 @@ class TracksListAdapter: ListAdapter<Track, RecyclerView.ViewHolder>(TrackDiffCa
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val track = getItem(position)
-        (holder as TrackViewHolder).bind(track)
+        holder.bind(track)    }
+
+    override fun getItemCount(): Int = tracks.size
+
+    fun getItem(position: Int): Track = tracks[position]
+
+    fun updateList(newList: List<Track>?) {
+        this.tracks = newList ?: listOf()
+        this.notifyItemInserted(0)
     }
 
     class TrackViewHolder(
@@ -34,16 +47,4 @@ class TracksListAdapter: ListAdapter<Track, RecyclerView.ViewHolder>(TrackDiffCa
             }
         }
     }
-
-}
-
-class TrackDiffCallback: DiffUtil.ItemCallback<Track>() {
-    override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-        return oldItem == newItem;
-    }
-
 }
