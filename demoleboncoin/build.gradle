@@ -8,6 +8,7 @@ buildscript {
         gradleVersion = '4.2.1'
 
         // Librairies
+        coroutinesVersion = '1.6.1'
         hiltVersion = '2.42'
         workVersion = '2.7.1'
         retrofitVersion = '2.9.0'
@@ -20,6 +21,7 @@ buildscript {
         swipeVersion = '1.1.0'
         glideVersion = '4.13.0'
         navVersion = '2.4.2'
+        coreTestingVersion = '2.1.0'
     }
 
     repositories {

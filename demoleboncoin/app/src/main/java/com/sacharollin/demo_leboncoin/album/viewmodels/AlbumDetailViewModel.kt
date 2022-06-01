@@ -13,7 +13,7 @@ class AlbumDetailViewModel @Inject internal constructor(
     albumRepository: AlbumRepository,
 ): ViewModel() {
 
-    var albumId: MutableLiveData<Int> = MutableLiveData();
+    var albumId: MutableLiveData<Int> = MutableLiveData()
 
     // Get all tracks of the list
     var tracks: LiveData<List<Track>> = Transformations.switchMap(albumId) { albumId ->
