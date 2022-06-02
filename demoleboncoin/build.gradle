@@ -19,9 +19,10 @@ buildscript {
         lifecycleVersion = '2.4.1'
         loggerVersion = '2.2.0'
         swipeVersion = '1.1.0'
-        glideVersion = '4.13.0'
+        glideVersion = '4.13.1'
         navVersion = '2.4.2'
         coreTestingVersion = '2.1.0'
+        picassoVersion = '2.8'
     }
 
     repositories {

@@ -4,9 +4,14 @@ Technical test for LeBonCoin
 
 # Front to do
 
+## Detail Album
+- Fit image better in case 
+
 - Local pagination for the album list
 - Navigation and animation with image
 - add toolbar and title
+
+
 
 
 # Test to do

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +35,8 @@ class AlbumListFragment : Fragment() {
             viewModel = this.viewModel
         }
 
+        (activity as AppCompatActivity).supportActionBar?.title = "Detail d'un album"
+
         // Force the refresh from the API
         binding.swipeRefreshRecycler.setOnRefreshListener {
             viewModel.refresh(true)
@@ -54,8 +57,7 @@ class AlbumListFragment : Fragment() {
         viewModel.albums.observe(viewLifecycleOwner) { listAlbums ->
             // When success refresh the list with the tracks
             if (listAlbums.status == NBRStatus.SUCCESS || (listAlbums.data?.isNotEmpty() == true)) {
-                Logger.d("Update the list with ${listAlbums.data?.size} elements")
-                adapter.updateList(listAlbums.data)
+                adapter.updateList(listAlbums.data ?: listOf())
                 binding.swipeRefreshRecycler.isRefreshing = false
             }
         }

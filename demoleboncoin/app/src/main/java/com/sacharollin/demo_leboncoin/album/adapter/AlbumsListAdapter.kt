@@ -1,21 +1,33 @@
 package com.sacharollin.demo_leboncoin.album.adapter
 
+import androidx.recyclerview.widget.DiffUtil
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.sacharollin.demo_leboncoin.R
 import com.sacharollin.demo_leboncoin.album.data.Album
-import com.sacharollin.demo_leboncoin.album.ui.AlbumDetailFragmentArgs
 import com.sacharollin.demo_leboncoin.album.ui.AlbumListFragmentDirections
 import com.sacharollin.demo_leboncoin.databinding.ListItemAlbumBinding
-import retrofit2.Response.error
+import com.squareup.picasso.Picasso
 
-class AlbumListAdapter: RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
+
+class AlbumListAdapter : RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
 ) {
-    var tracks: List<Album> = listOf()
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Album>() {
+        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
+            return oldItem == newItem
+
+        }
+    }
+    private var _differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         return AlbumViewHolder(
@@ -32,18 +44,17 @@ class AlbumListAdapter: RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
         holder.bind(album)
     }
 
-    override fun getItemCount(): Int = tracks.size
+    override fun getItemCount(): Int = _differ.currentList.size
 
-    fun getItem(position: Int): Album = tracks[position]
+    fun getItem(position: Int): Album = _differ.currentList[position]
 
-    fun updateList(newList: List<Album>?) {
-        this.tracks = newList ?: listOf()
-        this.notifyItemInserted(0)
+    fun updateList(newList: List<Album>) {
+        _differ.submitList(newList)
     }
 
     class AlbumViewHolder(
         private val binding: ListItemAlbumBinding,
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Album) {
             binding.apply {
@@ -51,16 +62,17 @@ class AlbumListAdapter: RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
             }
 
             binding.albumCard.setOnClickListener { view ->
-                var action = AlbumListFragmentDirections.actionAlbumListFragmentToAlbumDetailFragment(item.id)
+                var action =
+                    AlbumListFragmentDirections.actionAlbumListFragmentToAlbumDetailFragment(item.id)
                 view.findNavController().navigate(action)
             }
 
-            Glide
-                .with(itemView)
+            Picasso
+                .get()
                 .load(item.thumbnailUrl)
-                .centerCrop()
-                .error(R.drawable.image_error)
                 .into(binding.albumThumbnail)
         }
     }
+
+
 }

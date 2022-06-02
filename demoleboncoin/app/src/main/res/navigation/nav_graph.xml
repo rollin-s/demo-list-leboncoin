@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/albumListFragment"
         android:name="com.sacharollin.demo_leboncoin.album.ui.AlbumListFragment"
-        android:label="AlbumListFragment" >
+        android:label="Liste des albums" >
         <action
             android:id="@+id/action_albumListFragment_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/albumDetailFragment"
         android:name="com.sacharollin.demo_leboncoin.album.ui.AlbumDetailFragment"
-        android:label="AlbumDetailFragment" >
+        android:label="Detail d'un album" >
         <argument
             android:name="albumId"
             app:argType="integer" />

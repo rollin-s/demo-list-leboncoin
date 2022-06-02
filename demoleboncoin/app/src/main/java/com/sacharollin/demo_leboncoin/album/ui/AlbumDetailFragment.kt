@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,8 @@ class AlbumDetailFragment : Fragment() {
 
         // When the view is created, we want to force the refresh of the list
         viewModel.albumId.postValue(arguments?.getInt("albumId"))
+        (activity as AppCompatActivity).supportActionBar?.title = "Listes des albums"
+
         return binding.root
     }
 
