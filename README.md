@@ -7,10 +7,16 @@ Technical test for LeBonCoin
 ## Detail Album
 - Fit image better in case 
 
+## Album list
 - Local pagination for the album list
 - Navigation and animation with image
-- add toolbar and title
 
+## Repository
+- Use a RemoteDataSource ton override it in test
+- Handle caching and prevent fetching everytime
+
+## Styles and xml
+- Put the style of the application in the xml 
 
 
 

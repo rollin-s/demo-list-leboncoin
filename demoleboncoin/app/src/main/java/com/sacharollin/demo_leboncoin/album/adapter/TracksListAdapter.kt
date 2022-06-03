@@ -2,17 +2,25 @@ package com.sacharollin.demo_leboncoin.album.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sacharollin.demo_leboncoin.album.data.Track
 import com.sacharollin.demo_leboncoin.databinding.ListItemTrackBinding
-import okhttp3.internal.notifyAll
 
-class TracksListAdapter: RecyclerView.Adapter<TracksListAdapter.TrackViewHolder>(
-) {
-    var tracks: List<Track> = listOf()
+class TracksListAdapter: PagedListAdapter<Track, TracksListAdapter.TrackViewHolder>(DIFF_CALLBACK) {
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
+            override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
+                return oldItem == newItem
+
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         return TrackViewHolder(
@@ -25,16 +33,9 @@ class TracksListAdapter: RecyclerView.Adapter<TracksListAdapter.TrackViewHolder>
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        val track = getItem(position)
-        holder.bind(track)    }
-
-    override fun getItemCount(): Int = tracks.size
-
-    fun getItem(position: Int): Track = tracks[position]
-
-    fun updateList(newList: List<Track>?) {
-        this.tracks = newList ?: listOf()
-        this.notifyItemInserted(0)
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 
     class TrackViewHolder(

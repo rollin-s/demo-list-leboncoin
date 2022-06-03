@@ -1,5 +1,6 @@
 package com.sacharollin.demo_leboncoin.album.data
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
@@ -12,9 +13,9 @@ interface AlbumDao {
     fun getTracks(): Flow<List<Track>>
 
     @Query("SELECT * FROM tracks WHERE albumId = :albumId ORDER BY title")
-    fun getTracksFromAlbumId(albumId: Int): Flow<List<Track>>
+    fun getTracksFromAlbumId(albumId: Int): DataSource.Factory<Int, Track>
 
-    @Query("SELECT tracks.albumId AS id, tracks.thumbnailUrl AS thumbnailUrl, tracks.title AS title FROM tracks GROUP BY tracks.albumId")
+    @Query("SELECT tracks.albumId AS id, tracks.thumbnailUrl AS thumbnailUrl, tracks.title AS title, COUNT(*) AS numberTracks FROM tracks GROUP BY tracks.albumId")
     fun getAlbums(): Flow<List<Album>>
 
     @Insert(onConflict = REPLACE)

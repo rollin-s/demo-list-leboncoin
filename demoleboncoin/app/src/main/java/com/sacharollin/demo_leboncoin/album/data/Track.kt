@@ -17,4 +17,8 @@ data class Track(
     @field:SerializedName("title") val title: String,
     @field:SerializedName("url") val url: String,
     @field:SerializedName("thumbnailUrl") val thumbnailUrl: String,
-)
+) {
+    override fun toString(): String {
+        return title
+    }
+}

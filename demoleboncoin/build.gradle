@@ -23,6 +23,7 @@ buildscript {
         navVersion = '2.4.2'
         coreTestingVersion = '2.1.0'
         picassoVersion = '2.8'
+        pagingVersion = '2.1.2'
     }
 
     repositories {

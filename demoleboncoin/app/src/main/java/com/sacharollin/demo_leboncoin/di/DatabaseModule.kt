@@ -22,6 +22,6 @@ class DatabaseModule {
 
     @Provides
     fun provideAlbumDao(appDatabase: AppDatabase): AlbumDao {
-        return appDatabase.AlbumDao()
+        return appDatabase.albumDao()
     }
 }

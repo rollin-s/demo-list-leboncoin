@@ -1,5 +1,6 @@
 package com.sacharollin.demo_leboncoin.album.data
 
+import androidx.paging.DataSource
 import com.orhanobut.logger.Logger
 import com.sacharollin.demo_leboncoin.Resource
 import com.sacharollin.demo_leboncoin.album.api.AlbumService
@@ -31,7 +32,7 @@ class AlbumRepository @Inject internal constructor(
     }
 
 
-    fun getTracksFromAlbumId(albumId: Int): Flow<List<Track>> {
+    fun getTracksFromAlbumId(albumId: Int): DataSource.Factory<Int, Track> {
         return albumDao.getTracksFromAlbumId(albumId)
     }
 

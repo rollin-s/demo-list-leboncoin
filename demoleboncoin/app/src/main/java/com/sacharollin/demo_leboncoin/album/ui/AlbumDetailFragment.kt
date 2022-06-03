@@ -51,7 +51,7 @@ class AlbumDetailFragment : Fragment() {
         viewModel.tracks.observe(viewLifecycleOwner) { listTracks ->
             // When success refresh the list with the tracks
             Logger.d("Update the list with ${listTracks.size} elements")
-            adapter.updateList(listTracks)
+            adapter.submitList(listTracks)
         }
     }
 }

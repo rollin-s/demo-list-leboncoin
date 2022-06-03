@@ -12,7 +12,7 @@ import com.sacharollin.demo_leboncoin.album.data.Track
 
 @Database(entities = [Track::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun AlbumDao(): AlbumDao
+    abstract fun albumDao(): AlbumDao
 
     companion object {
 

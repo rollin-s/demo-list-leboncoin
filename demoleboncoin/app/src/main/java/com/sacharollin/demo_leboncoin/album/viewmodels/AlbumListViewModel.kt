@@ -13,7 +13,7 @@ class AlbumListViewModel @Inject internal constructor(
     albumRepository: AlbumRepository,
 ): ViewModel() {
 
-    var shouldRefresh: MutableLiveData<Boolean> = MutableLiveData();
+    var shouldRefresh: MutableLiveData<Boolean> = MutableLiveData()
 
     // Get all tracks of the list
     var tracks: LiveData<Resource<List<Track>>> = Transformations.switchMap(shouldRefresh) { shouldRefresh ->

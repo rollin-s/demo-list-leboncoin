@@ -1,6 +1,8 @@
 package com.sacharollin.demo_leboncoin.album.viewmodels
 
 import androidx.lifecycle.*
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.sacharollin.demo_leboncoin.Resource
 import com.sacharollin.demo_leboncoin.album.data.Album
 import com.sacharollin.demo_leboncoin.album.data.AlbumRepository
@@ -16,7 +18,7 @@ class AlbumDetailViewModel @Inject internal constructor(
     var albumId: MutableLiveData<Int> = MutableLiveData()
 
     // Get all tracks of the list
-    var tracks: LiveData<List<Track>> = Transformations.switchMap(albumId) { albumId ->
-        albumRepository.getTracksFromAlbumId(albumId).asLiveData()
+    var tracks: LiveData<PagedList<Track>> = Transformations.switchMap(albumId) { albumId ->
+        albumRepository.getTracksFromAlbumId(albumId).toLiveData(pageSize = 15)
     }
 }
